@@ -14,28 +14,19 @@
     </form>
     <h2>Tasks:</h2>
     <div id="task-container">
+        {% for item in items %}
         <div class="todo">
-            <p>Learn about CORS</p>
+            <p>{{ item.name }}</p>
             <div class="actions">
-                <form action="">
-                    <input type="checkbox">
+                <form action="{{ url_for('toggle_checked', task_id=item.id) }}" method="post">
+                    <input type="checkbox" {% if item.checked %}checked{% endif %} onchange="this.form.submit()">
                 </form>
-                <form action="">
+                <form action="{{ url_for('delete_task', task_id=item.id) }}" method="post">
                     <button class="btn-del">Delete</button>
                 </form>
             </div>
         </div>
-        <div class="todo">
-            <p>Learn about middleware</p>
-            <div class="actions">
-                <form action="">
-                    <input type="checkbox">
-                </form>
-                <form action="">
-                    <button class="btn-del">Delete</button>
-                </form>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </body>
 </html>
