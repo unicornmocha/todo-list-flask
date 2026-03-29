@@ -7,26 +7,30 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>To-Do List Flask</h1>
-    <form action="{{ url_for('home') }}" method="post" class="input-container">
-        <input type="text" name="task" class="input-task" placeholder="Enter a new task" required>
-        <button id="add-task" type="submit">+</button>
-    </form>
-    <h2>Tasks:</h2>
-    <div id="task-container">
-        {% for item in items %}
-        <div class="todo">
-            <p>{{ item.name }}</p>
-            <div class="actions">
-                <form action="{{ url_for('toggle_checked', task_id=item.id) }}" method="post">
-                    <input type="checkbox" {% if item.checked %}checked{% endif %} onchange="this.form.submit()">
-                </form>
-                <form action="{{ url_for('delete_task', task_id=item.id) }}" method="post">
-                    <button class="btn-del">Delete</button>
-                </form>
+    <div class="app-container">
+        <h1>To-Do List Flask</h1>
+        <form action="{{ url_for('home') }}" method="post" class="input-container">
+            <input type="text" name="task" class="input-task" placeholder="Enter a new task" required>
+            <button id="add-task" type="submit">+</button>
+        </form>
+        
+        <div id="task-container">
+            <div class="todo-header">
+                <h2>Tasks:</h2>
+                <span class="pill">{{ items|length }} total</span>
             </div>
+            {% for item in items %}
+            <div class="todo">
+                <p>{{ item.name }}</p>
+                    <form action="{{ url_for('toggle_checked', task_id=item.id) }}" method="post">
+                        <input class="checkbox-btn" type="checkbox"  {% if item.checked %}checked{% endif %} onchange="this.form.submit()">
+                    </form>
+                    <form action="{{ url_for('delete_task', task_id=item.id) }}" method="post">
+                        <button class="btn-del">Delete</button>
+                    </form>
+            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
-    </div>
+    </div>    
 </body>
 </html>
