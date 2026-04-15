@@ -4,6 +4,8 @@ from sqlalchemy import select
 import psycopg2
 import os
 from dotenv import load_dotenv
+import sys
+from PyQt6 import QtCore, QtWidgets
 
 load_dotenv()
 
